@@ -1,0 +1,253 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+}
+
+.login-container {
+    width: 400px;
+    margin: 100px auto;
+    padding: 35px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 5px;
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: normal;
+    margin-bottom: 30px;
+}
+
+input {
+    width: 90%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+button {
+    width: 95%;
+    padding: 12px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 6px;
+    background: #1976d2;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #125aa0;
+}
+/* =========================
+   LEMS DASHBOARD
+   ========================= */
+
+.dashboard {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.dashboard h1 {
+    color: #1976d2;
+    font-size: 32px;
+}
+
+.dashboard h2 {
+    margin-top: 30px;
+    color: #333;
+}
+
+.dashboard > p {
+    color: #666;
+}
+
+/* Dashboard cards */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+.card h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.card p {
+    font-size: 32px;
+    font-weight: bold;
+    color: #1976d2;
+    margin: 15px 0 0;
+}
+
+/* Equipment table */
+
+.dashboard table {
+    margin-top: 20px;
+    background: white;
+    border-collapse: collapse;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard th {
+    background: #1976d2;
+    color: white;
+    padding: 12px;
+}
+
+.dashboard td {
+    padding: 12px;
+    text-align: center;
+}
+
+.dashboard tr:nth-child(even) {
+    background: #f5f7fa;
+}
+
+/* Mobile responsive */
+
+@media (max-width: 800px) {
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard {
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    .dashboard table {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+}
+/* Equipment status badges */
+
+.status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status.available {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status.in_use {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.status.out_of_stock {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status.maintenance {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status.lost {
+    background: #343a40;
+    color: white;
+}
+```css
+/* Transaction History Styling */
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-badge.returned {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.status-badge.active {
+    background-color: #ffedd5;
+    color: #9a3412;
+}
+
+.status-badge.lost {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.status-badge.maintenance {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+#transactionSearch {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    margin: 15px 0;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    background-color: #1e3a8a;
+    color: white;
+    padding: 14px 10px;
+    text-align: left;
+}
+
+tbody td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f3f6fb;
+}
+
+tbody tr:hover {
+    background-color: #e0e7ff;
+}
+

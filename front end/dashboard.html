@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEMS Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="dashboard">
+    <h1>LEMS Dashboard</h1>
+    <p id="studentInfo">Welcome, Student</p>
+    <p>Welcome to Lab Equipment Management System</p>
+
+    <p>
+        <a href="transcations.html">Transaction History</a> |
+        <a href="#" onclick="logoutUser(event)">Logout</a>
+    </p>
+
+    <hr>
+
+    <h2>Equipment Overview</h2>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Total Equipment</h3>
+            <p id="totalEquipment">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Available</h3>
+            <p id="availableEquipment">0</p>
+        </div>
+
+        <div class="card">
+            <h3>In Use</h3>
+            <p id="inUseEquipment">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Maintenance</h3>
+            <p id="maintenanceEquipment">0</p>
+        </div>
+    </div>
+
+    <h2>Equipment List</h2>
+
+    <p id="stockSummary" style="font-weight: bold; margin-bottom: 12px; color: #1e3a8a;">
+        🟢 Available Equipment Units: <span id="availableStockText">0</span> out of <span id="totalStockText">0</span> total
+    </p>
+
+    <input
+        type="text"
+        id="searchBox"
+        placeholder="Search equipment..."
+        onkeyup="searchEquipment()"
+    >
+
+    <table>
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Equipment</th>
+                <th>Category</th>
+                <th>Stock (Avail / Total)</th>
+                <th>Status</th>
+                <th>Runtime (Hours)</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="equipmentTable">
+            <tr>
+                <td colspan="7">Loading equipment...</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="dashboard.js"></script>
+
+<script>
+    function logoutUser(event) {
+        event.preventDefault();
+
+        if (confirm("Are you sure you want to log out?")) {
+            sessionStorage.removeItem("lemsUser");
+            window.location.href = "index.html";
+        }
+    }
+</script>
+
+</body>
+</html>

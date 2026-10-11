@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEMS - Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .admin-nav {
+            margin-bottom: 20px;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .admin-nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #1976d2;
+            font-weight: bold;
+        }
+
+        .admin-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .admin-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .student-search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            max-width: 500px;
+        }
+
+        .student-search-box input {
+            flex: 1;
+            margin: 0;
+        }
+
+        .student-search-box button {
+            width: auto;
+            margin-top: 0;
+            padding: 10px 20px;
+        }
+
+        .student-info-card {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #1976d2;
+        }
+
+        .student-info-card p {
+            margin: 5px 0;
+            font-size: 15px;
+        }
+
+        .action-btn {
+            width: auto;
+            padding: 6px 12px;
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .edit-btn {
+            background: #0284c7;
+        }
+
+        .edit-btn:hover {
+            background: #0369a1;
+        }
+
+        .alert-banner {
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+
+    <h1>LEMS - Admin Dashboard</h1>
+    <p>Lab Equipment Management System — Administration</p>
+
+    <div class="admin-nav">
+        <a href="admin.html">Admin Dashboard</a>
+        <a href="addequipment.html">➕ Add New Equipment</a>
+        <a href="dashboard.html">Equipment Dashboard</a>
+        <a href="transcations.html">Transaction History</a>
+        <a href="#" onclick="logoutUser(event)" style="color: #d32f2f;">Logout</a>
+    </div>
+
+    <div id="message"></div>
+
+    <h2>Equipment Overview</h2>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Total Equipment</h3>
+            <p id="totalEquipment">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Available</h3>
+            <p id="availableEquipment">0</p>
+        </div>
+
+        <div class="card">
+            <h3>In Use / Out of Stock</h3>
+            <p id="inUseEquipment">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Maintenance</h3>
+            <p id="maintenanceEquipment">0</p>
+        </div>
+    </div>
+
+    <!-- STUDENT COMPLAINTS SECTION -->
+    <div class="admin-section">
+        <h2>Student Maintenance Complaints</h2>
+        <p>Review equipment issues and maintenance requests reported by students.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Student Name (ID)</th>
+                    <th>Equipment</th>
+                    <th>Issue Description</th>
+                    <th>Reported Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="complaintsTable">
+                <tr>
+                    <td colspan="7">Loading complaints...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- RECENT TRANSACTIONS SECTION -->
+    <div class="admin-section">
+        <h2>Recent Equipment Transactions (Checkouts & Returns)</h2>
+        <p>Real-time log of all student checkouts, returns, and timestamps.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Student Name</th>
+                    <th>Student ID</th>
+                    <th>Equipment Code & Name</th>
+                    <th>Checkout Time</th>
+                    <th>Return Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="adminTransactionsTable">
+                <tr>
+                    <td colspan="7">Loading recent transactions...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- STUDENT ACCOUNT LOOKUP SECTION -->
+    <div class="admin-section">
+        <h2>Student Account Lookup</h2>
+        <p>Enter a Student ID to view their account details, current withdrawals, and full transaction history.</p>
+
+        <div class="student-search-box">
+            <input type="text" id="studentLookupId" placeholder="Enter Student ID (e.g. S101)...">
+            <button onclick="searchStudentAccount()">Search Student</button>
+        </div>
+
+        <div id="studentDetailsContainer" style="display: none;">
+            <div class="student-info-card">
+                <h3>Student Profile</h3>
+                <p><strong>Name:</strong> <span id="studentProfileName">-</span></p>
+                <p><strong>Student ID:</strong> <span id="studentProfileId">-</span></p>
+                <p><strong>Email:</strong> <span id="studentProfileEmail">-</span></p>
+                <p><strong>Role:</strong> <span id="studentProfileRole">-</span></p>
+            </div>
+
+            <h3>Active Equipment Withdrawals (Currently Checked Out)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Equipment Code</th>
+                        <th>Equipment Name</th>
+                        <th>Checkout Time</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="activeWithdrawalsTable">
+                    <tr>
+                        <td colspan="6">No active withdrawals found.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin-top: 25px;">Student Transaction History</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Equipment Code</th>
+                        <th>Equipment Name</th>
+                        <th>Checkout Time</th>
+                        <th>Return Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTransactionsTable">
+                    <tr>
+                        <td colspan="6">No transaction records found.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- EQUIPMENT MANAGEMENT SECTION -->
+    <div class="admin-section">
+        <h2>Equipment Inventory & Status Management</h2>
+        <div id="alerts" class="alert-banner">Checking equipment status...</div>
+
+        <p id="stockSummary" style="font-weight: bold; margin-bottom: 12px; color: #1e3a8a;">
+            🟢 Available Equipment Units: <span id="adminAvailableStockText">0</span> out of <span id="adminTotalStockText">0</span> total
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Equipment Name</th>
+                    <th>Category</th>
+                    <th>Stock (Avail / Total)</th>
+                    <th>Status</th>
+                    <th>Runtime (Hours)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="equipmentTable">
+                <tr>
+                    <td colspan="7">Loading equipment...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script src="admin.js"></script>
+
+<script>
+    function logoutUser(event) {
+        event.preventDefault();
+        if (confirm("Are you sure you want to log out?")) {
+            sessionStorage.removeItem("lemsUser");
+            window.location.href = "index.html";
+        }
+    }
+</script>
+
+</body>
+</html>

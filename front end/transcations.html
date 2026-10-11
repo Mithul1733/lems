@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEMS - Transaction History</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="dashboard">
+    <h1>LEMS - Transaction History</h1>
+    <p>View equipment checkout and return records.</p>
+
+    <p>
+        <a href="dashboard.html">← Back to Dashboard</a>
+    </p>
+
+    <input
+            type="text"
+            id="transactionSearch"
+            placeholder="Search student or equipment..."
+            oninput="searchTransactions()">
+
+
+    <table>
+        <thead>
+        <tr>
+            <th>Transaction ID</th>
+            <th>Student Name</th>
+            <th>Student ID</th>
+            <th>Equipment Code</th>
+            <th>Equipment Name</th>
+            <th>Checkout Time</th>
+            <th>Return Time</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody id="transactionTable">
+        <tr>
+            <td colspan="8">Loading transactions...</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="transcations.js"></script>
+</body>
+</html>
