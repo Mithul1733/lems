@@ -30,10 +30,11 @@ if (EMAIL_USER && EMAIL_PASS && EMAIL_USER !== "your-gmail@gmail.com") {
 
 // MySQL connection
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password:"Sharu@2008",
-    database: "lems_db"
+    host: process.env.MYSQLHOST || process.env.DB_HOST || "127.0.0.1",
+    user: process.env.MYSQLUSER || process.env.DB_USER || "root",
+    password: process.env.MYSQLPASSWORD || process.env.DB_PASSWORD || "",
+    database: process.env.MYSQLDATABASE || process.env.DB_NAME || "lems_db",
+    port: Number(process.env.MYSQLPORT || process.env.DB_PORT || 3306)
 });
 
 // Connect to MySQL
@@ -797,7 +798,7 @@ app.get("/api/admin/student/:student_id", (req, res) => {
 });
 
 // Start server — keep this at the bottom
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 app.post("/api/equipment", (req, res) => {
     const {
