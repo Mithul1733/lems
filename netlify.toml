@@ -1,7 +1,6 @@
 [build]
-  base = "front end"
-  command = "node ../scripts/generate-api-config.js"
-  publish = "."
+  command = "node scripts/generate-api-config.js"
+  publish = "front end"
 
 [[headers]]
   for = "/*.html"
