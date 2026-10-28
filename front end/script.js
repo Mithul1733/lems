@@ -90,7 +90,7 @@ async function signup() {
     const studentId = document.getElementById("signupStudentId").value.trim();
     const email = document.getElementById("signupEmail").value.trim();
     const password = document.getElementById("signupPassword").value.trim();
-    const role = document.getElementById("signupRole").value;
+    const role = "student";
 
     if (!name || !studentId || !email || !password) {
         alert("Please fill in all fields (Name, ID, Email, and Password).");
@@ -157,7 +157,7 @@ async function forgotPassword() {
         return;
     }
 
-    messageEl.textContent = "Generating password reset link...";
+    messageEl.textContent = "Requesting a password reset email...";
     messageEl.style.color = "#1976d2";
 
     try {
@@ -179,12 +179,10 @@ async function forgotPassword() {
         const data = await response.json();
 
         if (response.ok) {
-            messageEl.innerHTML = `
-                <span style="color: green; font-weight: bold;">✅ Reset Link Created!</span><br><br>
-                <a href="${data.resetLink}" style="word-break: break-all; color: #1976d2; font-weight: bold;">Click here to Reset Password</a>
-            `;
+            messageEl.textContent = "✅ " + (data.message || "If the account exists, a reset link will be sent to its registered email.");
+            messageEl.style.color = "green";
         } else {
-            messageEl.textContent = "❌ " + (data.message || "Email address not found.");
+            messageEl.textContent = "❌ " + (data.message || "Unable to process the request.");
             messageEl.style.color = "red";
         }
     } catch (error) {
