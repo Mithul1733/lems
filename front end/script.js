@@ -67,6 +67,7 @@ async function login() {
 
             sessionStorage.setItem("lemsUser", JSON.stringify(data.user));
             sessionStorage.setItem("lemsToken", data.token);
+            sessionStorage.setItem("lemsToken", data.token);
 
             if (userRole === "admin" || selectedRole === "admin") {
                 window.location.href = "admin.html";
